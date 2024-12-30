@@ -36,5 +36,11 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 
+    def get_readonly_fields(self, request, obj=None):
+        """Make email read-only when editing an existing user."""
+        if obj:  # If the user object exists, we are editing
+            return ['email', 'last_login']  # Make email read-only
+        return super().get_readonly_fields(request, obj)
+
 
 admin.site.register(models.User, UserAdmin)

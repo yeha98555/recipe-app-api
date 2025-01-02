@@ -8,7 +8,7 @@ from django.test import Client
 
 
 class AdminSiteTests(TestCase):
-    """Test for Django admin."""
+    """Tests for Django admin."""
 
     def setUp(self):
         """Create user and client."""
@@ -37,7 +37,7 @@ class AdminSiteTests(TestCase):
         url = reverse('admin:core_user_change', args=[self.user.id])
         res = self.client.get(url)
 
-        self.assertEquals(res.status_code, 200)
+        self.assertEqual(res.status_code, 200)
         self.assertContains(res, self.user.email)
 
     def test_create_user_page(self):
@@ -45,4 +45,4 @@ class AdminSiteTests(TestCase):
         url = reverse('admin:core_user_add')
         res = self.client.get(url)
 
-        self.assertEquals(res.status_code, 200)
+        self.assertEqual(res.status_code, 200)

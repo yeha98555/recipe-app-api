@@ -1,5 +1,10 @@
 [tool.ruff]
 line-length = 100
-select = ["E", "F", "I", "UP"]
 target-version = "py312"
 exclude = ["migrations", "__pycache__", "manage.py", "settings.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]  # I 和 UP 是 isort 和 pyupgrade
+
+[tool.ruff.format]
+quote-style = "single"

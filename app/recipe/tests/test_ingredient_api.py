@@ -1,17 +1,15 @@
 """
 Tests for the ingredient API.
 """
-from django.contrib.auth import get_user_model
-from django.urls import reverse
-from django.test import TestCase
 
+from core.models import Ingredient
+from django.contrib.auth import get_user_model
+from django.test import TestCase
+from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from core.models import Ingredient
-
 from recipe.serializers import IngredientSerializer
-
 
 INGREDIENT_URL = reverse('recipe:ingredient-list')
 

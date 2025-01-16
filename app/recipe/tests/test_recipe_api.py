@@ -1,26 +1,24 @@
 """
 Test for the recipe API.
 """
+
 from decimal import Decimal
 
+from core.models import (
+    Ingredient,
+    Recipe,
+    Tag,
+)
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
-
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from core.models import (
-  Recipe,
-  Tag,
-  Ingredient,
-)
-
 from recipe.serializers import (
-    RecipeSerializer,
     RecipeDetailSerializer,
+    RecipeSerializer,
 )
-
 
 RECIPES_URL = reverse('recipe:recipe-list')
 
@@ -321,8 +319,7 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_create_recipe_with_existing_ingredient(self):
         """Test creating a recipe with existing ingredient."""
-        ingredient_lemon = Ingredient.objects.create(user=self.user,
-                                                     name='Lemon')
+        ingredient_lemon = Ingredient.objects.create(user=self.user, name='Lemon')
         payload = {
             'title': 'Vietnamese Soup',
             'time_minutes': 25,
@@ -358,13 +355,11 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_update_recipe_assign_ingredient(self):
         """Test assigning an existing ingredient when updating a recipe."""
-        ingredient_lemon = Ingredient.objects.create(user=self.user,
-                                                     name='Lemon')
+        ingredient_lemon = Ingredient.objects.create(user=self.user, name='Lemon')
         recipe = create_recipe(user=self.user)
         recipe.ingredients.add(ingredient_lemon)
 
-        ingredient_lime = Ingredient.objects.create(user=self.user,
-                                                    name='lime')
+        ingredient_lime = Ingredient.objects.create(user=self.user, name='lime')
         payload = {'ingredients': [{'name': 'lime'}]}
         url = detail_url(recipe.id)
         res = self.client.patch(url, payload, format='json')
